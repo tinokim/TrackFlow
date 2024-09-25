@@ -15,15 +15,17 @@ public class DashboardController {
 
     private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
-    @GetMapping("/dashboard")
+    @GetMapping("/dashboard") // 이 URL 매핑이 올바른지 확인
     public String dashboard(HttpSession session, Model model) {
+        logger.debug("Dashboard method called");
         User user = (User) session.getAttribute("user");
-        if (user == null) {
-            logger.warn("인증되지 않은 사용자가 대시보드에 접근 시도");
-            return "redirect:/users/login";
+        if (user != null) {
+            model.addAttribute("user", user);
+            logger.info("Logged in user accessing dashboard: {}", user.getUsername());
+        } else {
+            logger.info("Anonymous user accessing dashboard");
         }
-        model.addAttribute("user", user);
-        logger.info("대시보드 접근: {}", user.getUsername());
+        // 여기에 대시보드에 표시할 데이터를 추가하세요
         return "dashboard";
     }
 }
