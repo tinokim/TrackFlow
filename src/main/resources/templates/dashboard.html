@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>대시보드</title>
+</head>
+<body>
+    <h2>대시보드</h2>
+    <p>환영합니다, <span th:text="${user.username}">사용자</span>님!</p>
+    <a th:href="@{/users/logout}">로그아웃</a>
+    <!-- 대시보드 내용 추가 -->
+</body>
+</html>

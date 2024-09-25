@@ -60,7 +60,6 @@ public class BlogPostService {
         dto.setId(blogPost.getId());
         dto.setTitle(blogPost.getTitle());
         dto.setContent(blogPost.getContent());
-        dto.setAuthorId(blogPost.getAuthor().getId());
         dto.setAuthorName(blogPost.getAuthor().getUsername());
         dto.setCreatedAt(blogPost.getCreatedAt());
         dto.setUpdatedAt(blogPost.getUpdatedAt());
