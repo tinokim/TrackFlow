@@ -45,15 +45,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, HttpSession session, Model model) {
+    public String login(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
         try {
-            User user = userService.findByUsername(username);
+            User user = userService.loginUser(username, password);
             session.setAttribute("user", user);
             logger.info("User {} logged in successfully. Redirecting to dashboard.", username);
             return "redirect:/dashboard";
         } catch (RuntimeException e) {
             logger.error("Login failed for user: {}. Error: {}", username, e.getMessage());
-            model.addAttribute("error", "존재하지 않는 사용자 이름입니다.");
+            model.addAttribute("error", "사용자 이름 또는 비밀번호가 잘못되었습니다.");
             return "login";
         }
     }

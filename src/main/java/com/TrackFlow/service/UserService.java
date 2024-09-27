@@ -47,10 +47,15 @@ public class UserService {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
-    public User loginUser(String username) {
+    public User loginUser(String username, String password) {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
-            return userOptional.get();
+            User user = userOptional.get();
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            } else {
+                throw new RuntimeException("비밀번호가 잘못되었습니다.");
+            }
         } else {
             throw new RuntimeException("사용자를 찾을 수 없습니다.");
         }
