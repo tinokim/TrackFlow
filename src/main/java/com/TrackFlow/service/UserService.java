@@ -2,11 +2,13 @@ package com.TrackFlow.service;
 
 import com.TrackFlow.model.User;
 import com.TrackFlow.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;  // java.util.UUID를 사용하도록 import 문 수정
 
 @Service
 public class UserService {
@@ -59,5 +61,14 @@ public class UserService {
         } else {
             throw new RuntimeException("사용자를 찾을 수 없습니다.");
         }
+    }
+
+    public boolean isAdmin(UUID userId) {  // java.util.UUID 사용
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return "admin".equals(user.getUsername());
+        }
+        return false;
     }
 }

@@ -43,4 +43,20 @@ public class BlogPost {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
+
+    private String authorName;
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getAuthorName() {
+        return this.authorName;
+    }
+
+    private String imagePath;
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 }
